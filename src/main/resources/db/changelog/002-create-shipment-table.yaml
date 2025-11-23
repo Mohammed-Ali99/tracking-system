@@ -1,0 +1,76 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20251120010800
+      author: mohammed
+      changes:
+        - createSequence:
+              incrementBy: 1
+              sequenceName: shipment_seq
+              startValue: 1
+        - createTable:
+            tableName: shipments
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_shipments
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: tracking_number
+                  type: VARCHAR(50)
+              - column:
+                  name: sender_name
+                  type: VARCHAR(50)
+              - column:
+                  name: sender_address
+                  type: VARCHAR(50)
+              - column:
+                  name: receiver_name
+                  type: VARCHAR(50)
+              - column:
+                  name: receiver_address
+                  type: VARCHAR(50)
+              - column:
+                  name: weight
+                  type: DOUBLE
+              - column:
+                  name: status
+                  type: VARCHAR(50)
+              - column:
+                  name: driver_id
+                  type: BIGINT
+              - column:
+                  name: customer_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: created_by
+                  type: VARCHAR(50)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: created_at
+                  type: DATETIME
+              - column:
+                  name: last_modified_by
+                  type: VARCHAR(50)
+              - column:
+                  name: last_modified_at
+                  type: DATETIME
+
+        - addForeignKeyConstraint:
+            baseColumnNames: customer_id
+            baseTableName: shipments
+            constraintName: FK_SHIPMENTS_ON_CUSTOMER
+            referencedColumnNames: id
+            referencedTableName: users
+
+        - addForeignKeyConstraint:
+            baseColumnNames: driver_id
+            baseTableName: shipments
+            constraintName: FK_SHIPMENTS_ON_DRIVER
+            referencedColumnNames: id
+            referencedTableName: users

@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20251121123400
+      author: mohammed
+      changes:
+        - createSequence:
+            incrementBy: 1
+            sequenceName: shipment_file_seq
+            startValue: 1
+        - createTable:
+            tableName: shipment_files
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_shipment_files
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: file_path
+                  type: VARCHAR(255)
+              - column:
+                  name: file_type
+                  type: SMALLINT
+              - column:
+                  name: shipment_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: created_by
+                  type: VARCHAR(50)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: created_at
+                  type: DATETIME
+              - column:
+                  name: last_modified_by
+                  type: VARCHAR(50)
+              - column:
+                  name: last_modified_at
+                  type: DATETIME
+        - addForeignKeyConstraint:
+            baseColumnNames: shipment_id
+            baseTableName: shipment_files
+            constraintName: FK_SHIPMENT_FILES_ON_SHIPMENT
+            referencedColumnNames: id
+            referencedTableName: shipments

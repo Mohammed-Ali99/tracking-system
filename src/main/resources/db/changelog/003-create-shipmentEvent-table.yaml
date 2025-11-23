@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20251120100400
+      author: mohammed
+      changes:
+        - createSequence:
+              incrementBy: 1
+              sequenceName: shipment_event_seq
+              startValue: 1
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_shipment_events
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: shipment_id
+                  type: BIGINT
+              - column:
+                  name: status
+                  type: VARCHAR(50)
+              - column:
+                  name: description
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: created_by
+                  type: VARCHAR(50)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: created_at
+                  type: DATETIME
+              - column:
+                  name: last_modified_by
+                  type: VARCHAR(50)
+              - column:
+                  name: last_modified_at
+                  type: DATETIME
+            tableName: shipment_events
+        - addForeignKeyConstraint:
+            baseColumnNames: shipment_id
+            baseTableName: shipment_events
+            constraintName: FK_SHIPMENT_EVENTS_ON_SHIPMENT
+            referencedColumnNames: id
+            referencedTableName: shipments
