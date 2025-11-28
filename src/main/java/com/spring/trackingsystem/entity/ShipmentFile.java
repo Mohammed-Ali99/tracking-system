@@ -4,6 +4,7 @@ import com.spring.trackingsystem.entity.enums.ShipmentFileType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "shipment_files")
@@ -16,10 +17,15 @@ public class ShipmentFile extends AbstractAuditingEntity{
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "shipment_file_seq")
     private Long id;
 
-    @Column(name = "file_path")
-    private String filePath;
+    @Column(name = "base_data")
+    @Lob
+    private String base64Data;
+
+    @Column(name = "file_extension")
+    private String fileExtension;
 
     @Column(name = "file_type")
+    @Enumerated(EnumType.STRING)
     private ShipmentFileType fileType;
 
     @ManyToOne

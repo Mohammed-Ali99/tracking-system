@@ -124,4 +124,11 @@ public class ShipmentServiceImpl implements ShipmentService {
                 .orElseThrow(() -> BusinessException.buildNotFoundException(Shipment.class, trackingNumber));
         return shipmentMapper.toDto(shipment);
     }
+
+    @Override
+    public Shipment getShipmentById(Long id) {
+        return shipmentRepository.findById(id).orElseThrow(
+                () -> BusinessException.buildNotFoundException(Shipment.class, id)
+        );
+    }
 }

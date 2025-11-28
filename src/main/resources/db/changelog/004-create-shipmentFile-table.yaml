@@ -22,7 +22,7 @@ databaseChangeLog:
                   type: VARCHAR(255)
               - column:
                   name: file_type
-                  type: SMALLINT
+                  type: VARCHAR(50)
               - column:
                   name: shipment_id
                   type: BIGINT

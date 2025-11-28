@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20251125022100
+      author: mohammed
+      changes:
+        - addColumn:
+            tableName: shipment_files
+            columns:
+              - column:
+                  name: base_data
+                  type: CLOB
+              - column:
+                  name: file_extension
+                  type: VARCHAR(50)
+        - dropColumn:
+            tableName: shipment_files
+            columnName: file_path
